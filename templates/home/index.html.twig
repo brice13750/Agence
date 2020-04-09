@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+        <h1>hello</h1>
+        <div class="container">
+            <div class="row">
+            {% for ad in ads %}
+                <div class="col">
+                    <div class="ad">
+                       {{ad.city}}
+                       {{ad.title}}
+                       {{ad.description}}
+                       {{ad.area}}
+                    </div>
+                </div>   
+            {% endfor %}
+            </div>
+        </div>
+{% endblock %}
+{% block javascripts %}{% endblock %}
