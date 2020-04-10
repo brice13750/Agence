@@ -5,9 +5,10 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\Ads;
 use App\Entity\User;
+use App\Entity\Images;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
@@ -43,11 +44,19 @@ class AppFixtures extends Fixture
                 ->setFloor($faker->randomElement(['rez-de-chaussée', '1', '2', '3', '4']))
                 ->setPrice($faker->randomFloat(2, 40000, 9000000))
                 ->setType($faker->randomElement(['Maison', 'Appartement']))
+                ->setPicture("https://picsum.photos/640/480?random=" . mt_rand(0, 55000))
                 ->setUser($user);
+
+            $image = new Images();
+
+                $image->setName("https://picsum.photos/640/480?random=" . mt_rand(0, 55000))
+                ->setAds($ads);
                 
 
             $manager->persist($ads);
+            $manager->persist($image);
         }
+
         $manager->persist($user);
         $manager->flush();
     }
