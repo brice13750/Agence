@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Annonces{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
 <div class="container">
+	<h1 class="text-center">Nos dèrnieres annonces</h1>
 	<div class="row">
 		{% for ad in ads %}
 			<div class="col-4">

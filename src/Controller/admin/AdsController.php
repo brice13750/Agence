@@ -36,8 +36,18 @@ class AdsController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            $file = $ads->getPicture();
+
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+            $file->move($this->getParameter('image_directory'), $fileName);
+
+            $ads->setPicture($fileName);
+
             $em->persist($ads);
             $em->flush();
+
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('admin/add.html.twig', [

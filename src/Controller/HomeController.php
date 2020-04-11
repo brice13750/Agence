@@ -14,7 +14,7 @@ class HomeController extends AbstractController
      */
     public function home(AdsRepository $adsRepository)
     {
-        $ads = $adsRepository->findAll();
+        $ads = $adsRepository->findLastAds();
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',

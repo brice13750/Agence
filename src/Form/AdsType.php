@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -23,7 +24,7 @@ class AdsType extends AbstractType
             ->add('city', TextType::class, [
                 'label' => 'Ville'
             ])
-            ->add('title', TextType::class, [
+            ->add('Title', TextType::class, [
                 'label' => 'Titre'
             ])
             ->add('description', TextareaType::class, [
@@ -38,14 +39,28 @@ class AdsType extends AbstractType
             ->add('bedrooms', IntegerType::class,[
                 'label' => 'Nombre de chambres'
             ])
-            ->add('floor', TextType::class,[
-                'label' => 'Étage'
+            ->add('floor', ChoiceType::class,[
+                'label' => 'Étage',
+                'choices' => [
+                    'Rez-de-chausée' => '0',
+                    '1' => '1',
+                    '2' => '2',
+                    '3' => '3',
+                    '4' => '4',
+                    '5' => '5',
+                    '6' => '6',
+                ]
             ])
             ->add('price', NumberType::class,[
                 'label' => 'Prix'
             ])
-            ->add('type', TextType::class,[
-                'label' => 'Type'
+            ->add('type', ChoiceType::class,[
+                'label' => 'Type',
+                'choices' => [
+                    'Appartement' => 'Appartement',
+                    'Maison' => 'Maison',
+                    'Chalet' => 'Chalet'
+                ]
             ])
         ;
     }

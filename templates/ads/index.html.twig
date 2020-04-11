@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonces
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row">
+			{% for ad in ads %}
+				<div class="col-4">
+					<div class="card m-4" style="width: 18rem;">
+						<img class="card-img-top" src="{{ad.picture}}" alt="Image Annonce">
+						<div class="card-body">
+							<h5 class="card-title">{{ad.title}}</h5>
+							<p class="card-text">{{ad.description}}</p>
+							<a href="{{ path('show_ad', {'id': ad.id}) }}" class="btn btn-primary">Afficher</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		{# display navigation #}
+		<div class="navigation">
+			{{ knp_pagination_render(ads) }}
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}{% endblock %}

@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Ads;
+use App\Repository\AdsRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\BrowserKit\Response;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdsController extends AbstractController
 {
@@ -18,4 +23,24 @@ class AdsController extends AbstractController
             'ads' => $ads
         ]);
     }
+
+    /**
+     * @Route("/annonces", name="all_ads")
+     */
+    public function ads(AdsRepository $adsRepository, PaginatorInterface $paginator, Request $request)
+    {
+        $allAds = $adsRepository->findAll();
+
+        $ads = $paginator->paginate(
+        $allAds, /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+        6 /*limit per page*/
+    );
+        
+
+    return $this->render('ads/index.html.twig',[
+        'ads' => $ads
+    ]);
+    }
+
 }

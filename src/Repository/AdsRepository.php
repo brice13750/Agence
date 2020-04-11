@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Ads;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -22,19 +23,17 @@ class AdsRepository extends ServiceEntityRepository
     // /**
     //  * @return Ads[] Returns an array of Ads objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findLastAds()
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('a.id', 'DESC')
+            ->setMaxResults(6)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Ads

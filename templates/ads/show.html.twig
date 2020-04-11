@@ -7,7 +7,9 @@
 <h2 class="text-center">{{ads.title}}</h2>
     <div class="row">
         <div class="col">
-            <img src="{{ ads.picture }}" alt="">
+            {# <img src="{{ ads.picture }}" alt=""> #}
+            <img src="{{ asset('uploads/images/' ~ (ads.picture)) }}" class="img-fluid">
+
         </div>
         <div class="col">
             <p>Ville : {{ ads.city }}</p>
@@ -21,15 +23,5 @@
             <p><small>Date : {{ ads.createdAt|date('d-m-Y') }}</small></p>
         </div>
     </div>
-
-    {# <div class="img__ad mt-2">
-        <div class="row">
-            {% for image in ads.images %}
-                <div class="col-2">
-                <img src="{{image.name}}" alt="" class="img-thumbnail">
-                </div>
-            {% endfor %}
-        </div>
-    </div> #}
 </div>
 {% endblock %}
