@@ -11,6 +11,10 @@
 				<div class="col-4">
 					<div class="card m-4" style="width: 18rem;">
 						<img class="card-img-top" src="{{ad.picture}}" alt="Image Annonce">
+
+						{# pour afficher les images des annonces ajouté décommenter cette ligne et comment elle au-dessus #}
+            			{# <img src="{{ asset('uploads/images/' ~ (ads.picture)) }}" class="img-fluid"> #}
+
 						<div class="card-body">
 							<h5 class="card-title">{{ad.title}}</h5>
 							<p class="card-text">{{ad.description}}</p>

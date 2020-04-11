@@ -47,6 +47,8 @@ class AdsController extends AbstractController
             $em->persist($ads);
             $em->flush();
 
+            $this->addFlash('success', 'Annonce ajouter');
+
             return $this->redirectToRoute('home');
         }
 
@@ -67,9 +69,10 @@ class AdsController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            // $em->persist($ad);
             $em->flush();
-            // $this->addFlash('success', 'Annonce modifié');
+
+            $this->addFlash('warning', 'Annonce modifié');
+
             return $this->redirectToRoute('admin');
         }
 
@@ -87,6 +90,8 @@ class AdsController extends AbstractController
         $ad = $em->getRepository(Ads::class)->find($id);
         $em->remove($ad);
         $em->flush();
+
+        $this->addFlash('danger', 'Annonce supprimer');
 
         return $this->redirectToRoute('admin');
     }
