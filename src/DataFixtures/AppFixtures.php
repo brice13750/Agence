@@ -28,7 +28,7 @@ class AppFixtures extends Fixture
         $user = new User();
         $hash = $this->encoder->encodePassword($user, 'password');
 
-        $user->setEmail($faker->email)
+        $user->setEmail('admin@admin.com')
         ->setPassword($hash);
 
         for ($a = 0; $a < 70; $a++)
@@ -46,15 +46,9 @@ class AppFixtures extends Fixture
                 ->setType($faker->randomElement(['Maison', 'Appartement']))
                 ->setPicture("https://picsum.photos/640/480?random=" . mt_rand(0, 55000))
                 ->setUser($user);
-
-            $image = new Images();
-
-                $image->setName("https://picsum.photos/640/480?random=" . mt_rand(0, 55000))
-                ->setAds($ads);
                 
 
             $manager->persist($ads);
-            $manager->persist($image);
         }
 
         $manager->persist($user);

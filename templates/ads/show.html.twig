@@ -6,12 +6,12 @@
 <div class="container">
 <h2 class="text-center">{{ads.title}}</h2>
     <div class="row">
-        <div class="col">
-            {# <img src="{{ ads.picture }}" alt=""> #}
-            <img src="{{ asset('uploads/images/' ~ (ads.picture)) }}" class="img-fluid">
+        <div class="col-md-6 col-12">
+            <img src="{{ ads.picture }}" alt="" class="img-fluid">
+            {# <img src="{{ asset('uploads/images/' ~ (ads.picture)) }}" class="img-fluid"> #}
 
         </div>
-        <div class="col">
+        <div class="col-md-6 col-12">
             <p>Ville : {{ ads.city }}</p>
             <p>Description : {{ ads.description }}</p>
             <p>Surface : {{ ads.area }} m²</p>
