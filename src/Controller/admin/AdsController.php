@@ -4,6 +4,8 @@ namespace App\Controller\admin;
 
 use App\Entity\Ads;
 use App\Form\AdsType;
+use App\Form\EditAdsType;
+use App\Repository\AdsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,10 +16,12 @@ class AdsController extends AbstractController
     /**
      * @Route("/admin", name="admin")
      */
-    public function list()
+    public function list(AdsRepository $adsRepository)
     {
-        return $this->render('admin/ads/index.html.twig', [
-            'controller_name' => 'AdsController',
+        $ads = $adsRepository->findAll();
+
+        return $this->render('admin/index.html.twig', [
+            'ads' => $ads
         ]);
     }
 
@@ -39,5 +43,41 @@ class AdsController extends AbstractController
         return $this->render('admin/add.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+        /**
+    * @Route("/admin/edit/{id}", name="admin_edit")
+    */
+    public function edit($id, EntityManagerInterface $em, AdsRepository $adsRepository, Request $request)
+    {
+        $ad = $adsRepository->find($id);
+
+        $form = $this->createForm(EditAdsType::class, $ad);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            // $em->persist($ad);
+            $em->flush();
+            // $this->addFlash('success', 'Annonce modifié');
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/edit.html.twig',[
+            'form' => $form->createView(),
+            'ad' => $ad,
+        ]);
+    }
+
+    /**
+    * @Route("/admin/delete/{id}", name="admin_delete")
+    */
+    public function delete($id, EntityManagerInterface $em)
+    {
+        $ad = $em->getRepository(Ads::class)->find($id);
+        $em->remove($ad);
+        $em->flush();
+
+        return $this->redirectToRoute('admin');
     }
 }
