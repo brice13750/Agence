@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Ads;
-use App\Entity\AdsFilter;
 use App\Form\AdsFilterType;
 use App\Repository\AdsRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,22 +28,25 @@ class AdsController extends AbstractController
     /**
      * @Route("/annonces", name="all_ads")
      */
-    public function ads(AdsRepository $adsRepository, PaginatorInterface $paginator, Request $request)
+    public function ads(AdsRepository $adsRepository, PaginatorInterface $paginator, Request $request, Request $reques)
     {
-        $filter = new AdsFilter();
-        $form = $this->createForm(AdsFilterType::class, $filter);
+        $ads = new Ads();
+        $form = $this->createForm(AdsFilterType::class, $ads);
         $form->handleRequest($request);
 
-        if($form->isSubmitted()  && $form->isValid())
+        if($form->isSubmitted() && $form->isValid())
         {
-            $criteria = $form->getData();
-            $search = $adsRepository->filterAds($criteria);
-           dd($search);
+            // dd('hello');
+            // $criteria = $form->getData();
+            
+            // $search = $adsRepository->filterAds($criteria);
+            return $this->redirectToRoute('home');
         }
+
         $allAds = $adsRepository->findAll();
         $ads = $paginator->paginate(
         $allAds, /* query NOT result */
-        $request->query->getInt('page', 1), /*page number*/
+        $reques->query->getInt('page', 1), /*page number*/
         6 /*limit per page*/
     );
         

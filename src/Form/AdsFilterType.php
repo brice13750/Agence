@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\AdsFilter;
+use App\Entity\Ads;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,14 +13,14 @@ class AdsFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('maxPrice', IntegerType::class,[
+            ->add('price', IntegerType::class,[
                 'required' => false,
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Prix max'
                 ]
             ])
-            ->add('minArea', IntegerType::class,[
+            ->add('area', IntegerType::class,[
                 'required' => false,
                 'label' => false,
                 'attr' => [
@@ -33,7 +33,7 @@ class AdsFilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => AdsFilter::class,
+            'data_class' => Ads::class,
         ]);
     }
 }

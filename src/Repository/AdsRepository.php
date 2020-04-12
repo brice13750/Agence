@@ -39,9 +39,9 @@ class AdsRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('a')
         ->from('Ads', 'a')
-        ->where('a.price < :maxprice')
-        ->setParameter('maxprice', $criteria['maxprice']->$this->getMaxPrice())
-        ->andWhere('a.area > :minarea', $criteria['minarea']->$this->getMinArea())
+        ->where('a.price < :price')
+        ->setParameter('price', $criteria['price']->$this->getPrice())
+        ->andWhere('a.area > :area', $criteria['area']->$this->getArea())
         ->getQuery()
         ->getResult()
         ;
