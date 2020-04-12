@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdsRepository")
@@ -20,41 +21,64 @@ class Ads
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 50,
+     *      minMessage = "La ville doit comporter au moins  {{ limit }} caractères",
+     *      maxMessage = "La ville doit comporter maximum {{ limit }} caractères",
+     * )
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 100,
+     *      minMessage = "La titre doit comporter au moins  {{ limit }} caractères",
+     *      maxMessage = "La titre doit comporter maximum {{ limit }} caractères",
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *      min = 20,
+     *      max = 1500,
+     *      minMessage = "La description doit comporter au moins  {{ limit }} caractères",
+     *      maxMessage = "La description doit comporter maximum {{ limit }} caractères",
+     * )
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      */
     private $area;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      */
     private $rooms;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      */
     private $bedrooms;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $floor;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
      */
     private $price;
 
@@ -65,6 +89,7 @@ class Ads
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $type;
 
@@ -75,6 +100,9 @@ class Ads
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(
+     *     maxSize = "1024k",
+     * )
      */
     private $picture;
 
