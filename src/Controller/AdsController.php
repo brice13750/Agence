@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Ads;
+use App\Entity\AdsFilter;
+use App\Form\AdsFilterType;
 use App\Repository\AdsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\BrowserKit\Response;
@@ -29,8 +31,17 @@ class AdsController extends AbstractController
      */
     public function ads(AdsRepository $adsRepository, PaginatorInterface $paginator, Request $request)
     {
-        $allAds = $adsRepository->findAll();
+        $filter = new AdsFilter();
+        $form = $this->createForm(AdsFilterType::class, $filter);
+        $form->handleRequest($request);
 
+        if($form->isSubmitted()  && $form->isValid())
+        {
+            $criteria = $form->getData();
+            $search = $adsRepository->filterAds($criteria);
+           dd($search);
+        }
+        $allAds = $adsRepository->findAll();
         $ads = $paginator->paginate(
         $allAds, /* query NOT result */
         $request->query->getInt('page', 1), /*page number*/
@@ -39,7 +50,8 @@ class AdsController extends AbstractController
         
 
     return $this->render('ads/index.html.twig',[
-        'ads' => $ads
+        'ads' => $ads,
+        'form' => $form->createView()
     ]);
     }
 

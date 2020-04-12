@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Ads;
+use App\Entity\AdsFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -31,6 +32,18 @@ class AdsRepository extends ServiceEntityRepository
             ->setMaxResults(6)
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    public function filterAds($criteria)
+    {
+        return $this->createQueryBuilder('a')
+        ->from('Ads', 'a')
+        ->where('a.price < :maxprice')
+        ->setParameter('maxprice', $criteria['maxprice']->$this->getMaxPrice())
+        ->andWhere('a.area > :minarea', $criteria['minarea']->$this->getMinArea())
+        ->getQuery()
+        ->getResult()
         ;
     }
 
