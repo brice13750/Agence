@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Ads;
+use App\Form\AdsFilterType;
+use App\Form\AdsType;
 use App\Repository\AdsRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {

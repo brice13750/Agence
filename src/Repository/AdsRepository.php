@@ -35,16 +35,20 @@ class AdsRepository extends ServiceEntityRepository
         ;
     }
 
-    public function filterAds($criteria)
+    public function filterAds(Ads $ads)
     {
+        $price = $ads->getPrice();
+        $area = $ads->getArea();
+        
         return $this->createQueryBuilder('a')
-        ->from('Ads', 'a')
         ->where('a.price < :price')
-        ->setParameter('price', $criteria['price']->$this->getPrice())
-        ->andWhere('a.area > :area', $criteria['area']->$this->getArea())
+        ->setParameter('price', $price)
+        ->andWhere('a.area > :area')
+        ->setParameter('area', $area)
         ->getQuery()
         ->getResult()
         ;
+
     }
 
 

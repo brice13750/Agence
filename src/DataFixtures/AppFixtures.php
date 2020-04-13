@@ -42,7 +42,7 @@ class AppFixtures extends Fixture
                 ->setRooms(rand(2, 6))
                 ->setbedRooms(rand(1, 3))
                 ->setFloor($faker->randomElement(['rez-de-chaussée', '1', '2', '3', '4']))
-                ->setPrice($faker->randomFloat(2, 40000, 9000000))
+                ->setPrice($faker->randomFloat(2, 40000, 800000))
                 ->setType($faker->randomElement(['Maison', 'Appartement']))
                 ->setPicture("https://picsum.photos/640/480?random=" . mt_rand(0, 55000))
                 ->setUser($user);

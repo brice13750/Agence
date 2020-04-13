@@ -10,6 +10,8 @@ use Symfony\Component\BrowserKit\Response;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdsController extends AbstractController
@@ -30,19 +32,6 @@ class AdsController extends AbstractController
      */
     public function ads(AdsRepository $adsRepository, PaginatorInterface $paginator, Request $request, Request $reques)
     {
-        $ads = new Ads();
-        $form = $this->createForm(AdsFilterType::class, $ads);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid())
-        {
-            // dd('hello');
-            // $criteria = $form->getData();
-            
-            // $search = $adsRepository->filterAds($criteria);
-            return $this->redirectToRoute('home');
-        }
-
         $allAds = $adsRepository->findAll();
         $ads = $paginator->paginate(
         $allAds, /* query NOT result */
@@ -53,8 +42,36 @@ class AdsController extends AbstractController
 
     return $this->render('ads/index.html.twig',[
         'ads' => $ads,
-        'form' => $form->createView()
     ]);
     }
+
+
+    /**
+     * @Route("/filtre/annonce", name="filter_ad")
+     */
+    public function filter(AdsRepository $adsRepository, Request $request)
+    {
+        $ads = $adsRepository->findAll();
+        $form = $this->createForm(AdsFilterType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            
+            $criteria = $form->getData();
+            
+            $ads = $adsRepository->filterAds($criteria);
+            // dd($ads);
+
+        }
+        
+
+    return $this->render('ads/filter.html.twig',[
+        'form' => $form->createView(),
+        'ads' => $ads
+    ]);
+    }
+
+
 
 }
