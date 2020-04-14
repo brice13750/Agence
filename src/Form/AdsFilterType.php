@@ -14,14 +14,14 @@ class AdsFilterType extends AbstractType
     {
         $builder
         ->add('price', IntegerType::class,[
-            'required' => false,
+            'required' => true,
             'label' => false,
             'attr' => [
                 'placeholder' => 'Prix max'
             ]
         ])
         ->add('area', IntegerType::class,[
-            'required' => false,
+            'required' => true,
             'label' => false,
             'attr' => [
                 'placeholder' => 'Surface min'
