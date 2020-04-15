@@ -24,6 +24,9 @@
 				{{form_end(form)}}
 			</div>
 		</div>
+		{% if app.request.method == 'POST'%}
+			<p class='text-white pt-3 text-center'>{{nbrAds}} résultats corresponde à votre recherche</p>
+		{% endif %}
 	</div>
 
 <div class="row">

@@ -51,6 +51,7 @@ class AdsController extends AbstractController
      */
     public function filter(AdsRepository $adsRepository, Request $request)
     {
+        $nbrAds = null;
         $ads = $adsRepository->findAll();
         $form = $this->createForm(AdsFilterType::class);
         $form->handleRequest($request);
@@ -63,12 +64,16 @@ class AdsController extends AbstractController
             $ads = $adsRepository->filterAds($criteria);
             // dd($ads);
 
+            $nbrAds = count($ads);
+            // dd($nbrAds);
+
         }
         
 
     return $this->render('ads/filter.html.twig',[
         'form' => $form->createView(),
-        'ads' => $ads
+        'ads' => $ads,
+        'nbrAds' => $nbrAds
     ]);
     }
 
