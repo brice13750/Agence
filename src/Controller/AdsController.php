@@ -34,12 +34,11 @@ class AdsController extends AbstractController
     {
         $allAds = $adsRepository->findAll();
         $ads = $paginator->paginate(
-        $allAds, /* query NOT result */
+        $allAds, 
         $reques->query->getInt('page', 1), /*page number*/
-        6 /*limit per page*/
+        6
+         /*limit per page*/
     );
-        
-
     return $this->render('ads/index.html.twig',[
         'ads' => $ads,
     ]);
